@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 	return view('main');
-});
+})->name('main-page');
 
-Route::get('/pickup', function () {
-	return view('pickup');
-});
+Route::get('/signin', function(){
+    return view('signin');
+})->name('signin');
+Route::post('/signin', [Controllers\UserController::class, 'SignIn']);
+
+Route::get('/signup', function(){
+    return view('signup');
+})->name('signup');
+Route::post('/signup', [Controllers\UserController::class, 'SignUp']);
+
+Route::get('/signdown', [Controllers\UserController::class, 'SignDown'])->name('signdown');
+
+Route::post('/categories/add', [Controllers\CategoriesController::class, 'Add'])->name('add-category');

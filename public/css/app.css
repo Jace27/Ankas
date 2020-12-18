@@ -1,0 +1,231 @@
+@font-face {
+    font-family: 'megaicons';
+    src: url('/css/megaicons.woff');
+}
+@font-face {
+    font-family: 'roboto';
+    src: url('/css/roboto-v15-latin_cyrillic-300.woff2');
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'roboto';
+    src: url('/css/roboto-v15-latin_cyrillic-regular.woff');
+}
+
+.d-none { display: none; }
+.d-block { display: block; }
+.grid { display: grid; }
+.g-col1 { grid-template-columns: repeat(1, 1fr); }
+.g-col2 { grid-template-columns: repeat(2, 1fr); }
+.g-col3 { grid-template-columns: repeat(3, 1fr); }
+.g-col4 { grid-template-columns: repeat(4, 1fr); }
+.g-col5 { grid-template-columns: repeat(5, 1fr); }
+.g-col6 { grid-template-columns: repeat(6, 1fr); }
+.grid-items > * {
+    border: 1px grey solid;
+}
+.item-new {
+    background-color: #aaa;
+    cursor: pointer;
+}
+.item-new:hover {
+    background-color: #aaf;
+}
+.item-new > img {
+    width: 90px;
+    height: 90px;
+    margin: calc(50% - 45px);
+}
+.micon:before, .micon:after {
+    font-family: 'megaicons';
+    font-size: 24px;
+    color: #999;
+}
+.b-white {
+    background-color: white;
+}
+.social_icon {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+}
+.popup-wrapper {
+    background-color: rgba(128,128,128,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.popup {
+    padding: 1em;
+    margin: calc(75px) calc(50% - 150px);
+    min-height: 100px;
+    width: 300px;
+    overflow: auto;
+    text-align: center;
+    background-color: rgba(224,224,224,1);
+    border: 1px solid rgba(32,32,32,0.9);
+}
+.popup * {
+    text-align: center;
+    margin: auto;
+}
+.popup.popup-big {
+    margin-top: 20px;
+    min-height: calc(100% - 80px);
+    height: calc(100% - 80px);
+    min-width: 90%;
+    width: 90%;
+    margin: 20px 5%;
+}
+.popup button, .popup input[type=button], .popup input[type=submit] {
+    border: none;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+    margin-top: 0.5em;
+}
+.popup.error {
+    background-color: rgba(196,32,32,1);
+    border: 1px solid rgba(255,32,32,0.9);
+}
+.popup.success {
+    background-color: rgba(32,196,32,1);
+    border: 1px solid rgba(32,255,32,0.9);
+}
+
+html, body {
+    background-color: #ddd;
+    margin: 0;
+    padding: 0;
+}
+input {
+    padding: 0.5em;
+    margin: 0.5em;
+}
+input[type=button], input[type=submit], button {
+    padding: 0.5em 1.5em;
+    border: none;
+    background-color: #00975e;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 0.5em;
+}
+input[type=text],
+input[type=date],
+input[type=time],
+input[type=tel],
+input[type=password],
+textarea {
+    width: 200px;
+}
+a {
+    color: #555;
+}
+
+.container {
+    padding: 1em;
+    margin: 1em auto;
+    color: #555;
+}
+.container > * {
+    margin: 1em 0;
+}
+.section {
+    padding: 1em;
+}
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+header > * {
+    padding: 1em;
+    min-width: 32px;
+}
+.logo {
+    min-width: 150px;
+}
+.logo img {
+    width: 150px;
+    height: 28px;
+}
+.phone {
+    color: #00975e;
+    font-family: "roboto";
+    font-weight: 100;
+    min-width: 228px;
+}
+.phone > span {
+    font-size: 28px;
+}
+.search {
+    width: available;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    text-align: right;
+    cursor: pointer;
+}
+.search > input {
+    width: calc(100% - 2em - 24px);
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 24px;
+    float: left;
+}
+.micon.search:after {
+    content: "\e043";
+}
+.cart {
+    cursor: pointer;
+}
+.micon.cart:before {
+    content: "\e005";
+}
+footer {
+    color: #555;
+    border-top: 1px solid grey;
+}
+.micon.tel:before {
+    content: "\e017";
+    font-size: 12px;
+}
+.micon.hour:before {
+    content: "\e156";
+    font-size: 12px;
+}
+.micon.email:before {
+    content: "\e069";
+    font-size: 12px;
+}
+.b-footer__infoSocial {
+    text-align: right;
+}
+
+.banner-wrapper {
+    display: grid;
+    grid-template-columns: calc(75% + 1em) calc(25% - 1em);
+}
+.banner-right img {
+    max-width: 100%;
+}
+.slider-wrapper {
+    max-width: calc(100% - 1em);
+    max-height: 268px;
+}
+
+@media (min-width: 1300px){
+    .container {
+        width: 1200px;
+    }
+}
+@media (max-width: 1299px){
+    .container {
+        max-width: calc(100% - 2em);
+        margin: 1em;
+    }
+}
