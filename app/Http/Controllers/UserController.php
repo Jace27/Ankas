@@ -7,14 +7,20 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    // обработчик авторизации пользователя
     public function SignIn(Request $request){
+        // получаем данные из формы
         $data = $request->all();
+        // лишнее удаляем
         unset($data['_token']);
         unset($data['public_pass']);
         unset($data['pass']);
+
+        // среди всех пользователей ищем совпадающий e-mail и пароль
         foreach (Users::all() as $user){
             if ($request->input('email') == $user->email &&
                 password_verify($request->input('pass'), $user->password)){
+                // если пользователь найден, начинаем сессию
                 session_start();
                 $_SESSION['AuthedUser'] = array(
                     'email' => $user->email,
@@ -28,15 +34,23 @@ class UserController extends Controller
                 return redirect()->route('main-page');
             }
         }
+        // если пользователь не найден, возвращаемся с ошибкой
         $_SESSION['message'] = ['type'=>'error','text'=>'Неверный логин или пароль'];
         return redirect()->route('signin', $data);
     }
+    // обработчик запроса на регистрацию
     public function SignUp(Request $request){
         session_start();
+
+        // получаем все поля формы
         $data = $request->all();
+        // удаляем лишние
         unset($data['_token']);
         unset($data['public_pass']);
         unset($data['pass']);
+
+        // валидация
+        // если в данных ошибка - переадресовываем обратно с сообщением
         if ($request->input('email') == null){
             $_SESSION['message'] = ['type'=>'error','text'=>'Отсутствует E-Mail'];
             return redirect()->route('signup', $data);
@@ -52,6 +66,8 @@ class UserController extends Controller
             }
         }
 
+        // если валидация пройдена,
+        // добавляем пользователя в БД
         Users::insert(array(
             array(
                 'email' => $request->input('email'),
@@ -64,6 +80,7 @@ class UserController extends Controller
             ),
         ));
         $_SESSION['message'] = ['type'=>'success', 'text'=>'Вы успешно зарегистрированы'];
+        // устанавливаем сессию, чтобы данные пользователя были доступны во всех точках сайта
         $_SESSION['AuthedUser'] = array(
             'email' => $request->input('email'),
             'role' => (new \App\Models\roles)->find(2)->name,
@@ -72,6 +89,7 @@ class UserController extends Controller
             'third_name' => $request->input('third_name'),
             'phone' => $request->input('phone'),
         );
+        // возвращаемся на главную
         return redirect()->route('main-page');
     }
     public function SignDown(Request $request){

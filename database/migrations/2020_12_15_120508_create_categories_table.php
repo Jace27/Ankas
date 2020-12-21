@@ -16,9 +16,10 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->boolean('published');
-            $table->text('description');
-            $table->string('description_short');
+            $table->boolean('published')->default(true);
+            $table->string('image')->default('/images/default-image.png');
+            $table->text('description')->nullable();
+            $table->string('description_short')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +31,11 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::table('categories', function(Blueprint $table){
+            $table->dropForeign('subcategories_child_category_id_foreign');
+            $table->dropForeign('subcategories_parent_category_id_foreign');
+            $table->dropForeign('products_categories_category_id_foreign');
+        });
         Schema::dropIfExists('categories');
     }
 }

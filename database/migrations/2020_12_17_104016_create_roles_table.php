@@ -42,6 +42,10 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
+        Schema::table('roles', function(Blueprint $table){
+            $table->dropForeign('role_rights_role_id_foreign');
+            $table->dropForeign('users_role_id_foreign');
+        });
         Schema::dropIfExists('roles');
     }
 }

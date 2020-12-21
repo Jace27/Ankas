@@ -15,28 +15,9 @@ class CreateRoleRightsTable extends Migration
     {
         Schema::create('role_rights', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('role');
-            $table->integer('right');
+            $table->integer('role_id')->unsigned();
+            $table->integer('right_id')->unsigned();
         });
-
-        App\Models\role_right::insert(array(
-            array(
-                'role' => 1,
-                'right' => 1
-            ),
-            array(
-                'role' => 1,
-                'right' => 2
-            ),
-            array(
-                'role' => 1,
-                'right' => 3
-            ),
-            array(
-                'role' => 1,
-                'right' => 4
-            ),
-        ));
     }
 
     /**

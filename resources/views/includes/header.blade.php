@@ -18,6 +18,9 @@
                         }
                     }
                 });
-            })
+                $('.cart').click(function(e){
+                    window.location.assign('{{ route('cart') }}');
+                });
+            });
         </script>
     </header>

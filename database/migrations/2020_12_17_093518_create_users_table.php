@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password')->default(password_hash(hash('sha256', '12345'), PASSWORD_BCRYPT));
-            $table->integer('role_id')->default(2);
+            $table->integer('role_id')->unsigned()->default(2);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('third_name')->nullable();

@@ -16,9 +16,9 @@ class CreateBrandsTable extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('country');
-            $table->string('image');
-            $table->text('description');
+            $table->string('country')->nullable();
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
         });
     }
 
@@ -29,6 +29,9 @@ class CreateBrandsTable extends Migration
      */
     public function down()
     {
+        Schema::table('brands', function (Blueprint $table){
+            $table->dropForeign('products_details_brand_id_foreign');
+        });
         Schema::dropIfExists('brands');
     }
 }

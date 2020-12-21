@@ -15,7 +15,7 @@ class CreateProductsDetailsTable extends Migration
     {
         Schema::create('products_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('product_id');
+            $table->string('vendor_code')->unique();
             $table->integer('brand_id')->unsigned();
             $table->integer('cy_id')->unsigned();
             $table->integer('price')->unsigned();
@@ -41,6 +41,10 @@ class CreateProductsDetailsTable extends Migration
      */
     public function down()
     {
+        Schema::table('products_details', function (Blueprint $table){
+            $table->dropForeign('products_categories_products_detail_id_foreign');
+            $table->dropForeign('orders_products_product_id_foreign');
+        });
         Schema::dropIfExists('products_details');
     }
 }

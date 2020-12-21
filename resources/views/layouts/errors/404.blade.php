@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<!doctype html>
+    <!doctype html>
 <html lang="en">
 <head>
     @include('includes.head')
@@ -11,7 +11,9 @@ session_start();
 
     @include('includes.header')
 
-    @yield('content')
+    <div class="b-white">
+        <h1 class="page_header">Страница не найдена</h1>
+    </div>
 
     @include('includes.footer')
 

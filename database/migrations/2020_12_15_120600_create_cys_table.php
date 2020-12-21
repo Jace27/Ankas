@@ -61,6 +61,9 @@ class CreateCysTable extends Migration
      */
     public function down()
     {
+        Schema::table('cys', function (Blueprint $table){
+            $table->dropForeign('products_details_cy_id_foreign');
+        });
         Schema::dropIfExists('cys');
     }
 }

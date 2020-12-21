@@ -18,6 +18,10 @@ Route::get('/', function () {
 	return view('main');
 })->name('main-page');
 
+Route::get('/cart', function(){
+    return view('cart');
+})->name('cart');
+
 Route::get('/signin', function(){
     return view('signin');
 })->name('signin');
@@ -30,4 +34,7 @@ Route::post('/signup', [Controllers\UserController::class, 'SignUp']);
 
 Route::get('/signdown', [Controllers\UserController::class, 'SignDown'])->name('signdown');
 
-Route::post('/categories/add', [Controllers\CategoriesController::class, 'Add'])->name('add-category');
+Route::get('/categories/{id}', [Controllers\CategoriesController::class, 'GetCategory'])->where('id', '[0-9]+');
+Route::get('/categories/{cat}/products/{prod}', [Controllers\ProductsController::class, 'GetProduct'])->where('cat', '[0-9]+')->where('prod', '[0-9]+');
+
+Route::get('/categories/{id?}/add', [Controllers\CategoriesController::class, 'CreateNew'])->where('id', '[0-9]+');

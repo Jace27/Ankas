@@ -29,6 +29,10 @@ class CreateRightsTable extends Migration
                 'description' => ''
             ),
             array(
+                'name' => 'Удалить товар',
+                'description' => ''
+            ),
+            array(
                 'name' => 'Добавить категорию',
                 'description' => ''
             ),
@@ -36,23 +40,11 @@ class CreateRightsTable extends Migration
                 'name' => 'Изменить категорию',
                 'description' => ''
             ),
+            array(
+                'name' => 'Удалить категорию',
+                'description' => ''
+            ),
         ));
-/*
-        $right = new App\Models\rights();
-        $right->name = 'Добавить товар';
-        $right->save();
-
-        $right = new App\Models\rights();
-        $right->name = 'Изменить товар';
-        $right->save();
-
-        $right = new App\Models\rights();
-        $right->name = 'Добавить категорию';
-        $right->save();
-
-        $right = new App\Models\rights();
-        $right->name = 'Изменить категорию';
-        $right->save();*/
     }
 
     /**
@@ -62,6 +54,9 @@ class CreateRightsTable extends Migration
      */
     public function down()
     {
+        Schema::table('rights', function(Blueprint $table){
+            $table->dropForeign('role_rights_right_id_foreign');
+        });
         Schema::dropIfExists('rights');
     }
 }
