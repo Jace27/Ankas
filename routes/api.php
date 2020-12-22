@@ -14,22 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/cart', function (Request $request) {
-    session_start();
-    if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
-        $_SESSION['cart'] = [];
-    } else {
-        foreach ($_SESSION['cart'] as $key => $item){
-            if (!is_array($item)){
-                unset($_SESSION['cart'][$key]);
-            } else {
-                if ($item['id'] == $request->input('prod_id')) {
-                    $_SESSION['cart'][$key]['count']++;
-                    return 'success';
-                }
-            }
-        }
-    }
-    array_push($_SESSION['cart'], [ 'id'=>$request->input('prod_id'), 'count'=>1 ]);
-    return 'success';
+Route::post('/cart/add', function (Request $request) {
+    return \App\Http\Controllers\CartController::AddItem($request->input('prod_id'));
+});
+Route::post('/cart/remove', function (Request $request) {
+    return \App\Http\Controllers\CartController::RemoveItem($request->input('prod_id'));
+});
+Route::get('/cart/cost', function () {
+    return \App\Http\Controllers\CartController::GetCost();
 });

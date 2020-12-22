@@ -12,13 +12,33 @@ class CategoriesController extends Controller
         return view('category', ['id'=>$id]);
     }
 
-    public function CreateNew($id, Request $request){
-        return redirect()->route('main-page');
+    public function CreateNew(Request $request){
+        $cat = \App\Models\categories::create(array(
+            'name'=>$request->input('name'),
+            'image'=>$request->input('image'),
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ));
+        if ($request->input('parent') != 'none' && $request->input('parent') != null) {
+            \App\Models\subcategories::insert(array(
+                array(
+                    'parent_category_id'=>$request->input('parent'),
+                    'child_category_id'=>$cat->id,
+                ),
+            ));
+        }
+        return redirect('/categories/'.$cat->id);
     }
     public function Edit(Request $request){
-        return redirect()->route('main-page');
+        $cat = \App\Models\categories::find($request->input('id'));
+        $cat->name = $request->input('name');
+        $cat->image = $request->input('image');
+        $cat->save();
+        return redirect('/categories/'.$cat->id);
     }
-    public function Delete(Request $request){
+    public function Delete($id){
+        $cat = \App\Models\categories::find($id);
+        $cat->delete();
         return redirect()->route('main-page');
     }
 }

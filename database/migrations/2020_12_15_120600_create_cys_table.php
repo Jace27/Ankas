@@ -24,32 +24,32 @@ class CreateCysTable extends Migration
             array(
                 'name' => 'Рубль',
                 'code' => 'RUB',
-                'symbol' => '&#8381;'
+                'symbol' => 'руб.'
             ),
             array(
                 'name' => 'Доллар',
                 'code' => 'USD',
-                'symbol' => '&#36;'
+                'symbol' => '$'
             ),
             array(
                 'name' => 'Евро',
                 'code' => 'EUR',
-                'symbol' => '&#8364;'
+                'symbol' => 'евро'
             ),
             array(
                 'name' => 'Тенге',
                 'code' => 'KZT',
-                'symbol' => '&#8376;'
+                'symbol' => 'тенге'
             ),
             array(
                 'name' => 'Юань',
                 'code' => 'CNY',
-                'symbol' => '&#165;'
+                'symbol' => 'юаней'
             ),
             array(
                 'name' => 'Иена',
                 'code' => 'JPY',
-                'symbol' => '&#165;'
+                'symbol' => 'иен'
             ),
         ));
     }

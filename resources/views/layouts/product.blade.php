@@ -50,12 +50,15 @@ session_start();
     @include('includes.header')
 
     <?php
-    $cat = \App\Models\categories::find($catId);
-    $prod = \App\Models\products_detail::find($prodId);
+    $prod = \App\Models\products_detail::find($id);
     ?>
 
     <div class="b-white product">
-        <h1 class="page_header">{{ $cat->name }} {{ $prod->name }}</h1>
+        <h1 class="page_header">
+            {{ $prod->name }}
+            <a href="/products/edit/{{ $prod->id }}" class="edit"><img src="/images/edit.png"></a>
+            <a href="/products/delete/{{ $prod->id }}" class="delete"><img src="/images/delete.png"></a>
+        </h1>
         <div class="prod_img">
             <img src="{{ $prod->image }}">
         </div>
@@ -82,14 +85,16 @@ session_start();
         $(document).ready(function(){
             $('.buy').click(function(e){
                 let data = new FormData();
-                data.append('prod_id', {{ $prodId }});
+                data.append('prod_id', {{ $id }});
                 let xhr = new XMLHttpRequest();
-                xhr.open('post', '/api/cart');
+                xhr.open('post', '/api/cart/add');
                 xhr.send(data);
                 xhr.onreadystatechange = function(e){
                     if (xhr.readyState == 4){
                         console.log(xhr.response);
-                        $('.buy').html("Добавлено в корзину");
+                        if (xhr.response == 'success') {
+                            $('.buy').html("Добавлено в корзину");
+                        }
                     }
                 }
             });

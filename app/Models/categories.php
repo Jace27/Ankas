@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class categories extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'description', 'image', 'created_at', 'updated_at'];
 
     public function child_categories(){
         return $this->belongsToMany('App\Models\categories', 'subcategories', 'parent_category_id', 'child_category_id');

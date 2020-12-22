@@ -25,6 +25,33 @@
 .grid-items > * {
     border: 1px grey solid;
     padding: 0.3em;
+    font-size: 20px;
+}
+.grid-items > * a {
+    text-decoration: none;
+}
+.grid-items > * .edit {
+    position: relative;
+    display: block;
+    width: 32px;
+    float: left;
+    margin: 0.1em;
+}
+.grid-items > * .delete {
+    position: relative;
+    display: block;
+    width: 32px;
+    float: left;
+    right: 0;
+    margin: 0.1em;
+}
+.price {
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+    color: #00975e;
 }
 .item-new {
     background-color: #fff;
@@ -118,7 +145,8 @@ input[type=date],
 input[type=time],
 input[type=tel],
 input[type=password],
-textarea {
+textarea,
+select {
     width: 200px;
 }
 a {
@@ -241,10 +269,64 @@ footer > .grid > * { margin: 0.2em; }
     .container {
         width: 1200px;
     }
+    .mobile-hidden {
+        display: block;
+    }
+    .logo.d-none {
+        display: block;
+    }
 }
 @media (max-width: 1299px){
     .container {
-        max-width: calc(100% - 2em);
-        margin: 1em;
+        max-width: calc(100% - 0em);
+        margin: 0;
+    }
+    .container > * {
+        margin: 0 0 0.5em 0;
+    }
+    .mobile-hidden {
+        display: none;
+    }
+    .banner-wrapper {
+        grid-template-columns: 1fr;
+    }
+    #block-for-slider {
+        width: 100%;
+        max-width: 100%;
+    }
+    .slider-wrapper {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+}
+@media (min-width: 200px) and (max-width: 399px){
+    .grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media (min-width: 400px) and (max-width: 599px){
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 600px) and (max-width: 799px){
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 800px) and (max-width: 999px){
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (min-width: 1000px) and (max-width: 1199px){
+    .grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+@media (min-width: 1200px){
+    .grid {
+        grid-template-columns: repeat(6, 1fr);
     }
 }

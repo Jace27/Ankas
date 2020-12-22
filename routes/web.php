@@ -35,6 +35,32 @@ Route::post('/signup', [Controllers\UserController::class, 'SignUp']);
 Route::get('/signdown', [Controllers\UserController::class, 'SignDown'])->name('signdown');
 
 Route::get('/categories/{id}', [Controllers\CategoriesController::class, 'GetCategory'])->where('id', '[0-9]+');
-Route::get('/categories/{cat}/products/{prod}', [Controllers\ProductsController::class, 'GetProduct'])->where('cat', '[0-9]+')->where('prod', '[0-9]+');
+Route::get('/products/{id}', [Controllers\ProductsController::class, 'GetProduct'])->where('id', '[0-9]+');
 
-Route::get('/categories/{id?}/add', [Controllers\CategoriesController::class, 'CreateNew'])->where('id', '[0-9]+');
+Route::get('/categories/add', function(){
+    return view('add-category');
+})->name('add-category');
+Route::post('/categories/add', [Controllers\CategoriesController::class, 'CreateNew']);
+
+Route::get('/products/add', function(){
+    return view('add-product');
+})->name('add-product');
+Route::post('/products/add', [Controllers\ProductsController::class, 'CreateNew']);
+
+Route::get('/categories/edit/{id}', function($id){
+    return view('edit-category', ['id'=>$id]);
+});
+Route::post('/categories/edit', [Controllers\CategoriesController::class, 'Edit']);
+
+Route::get('/products/edit/{id}', function($id){
+    return view('edit-product', ['id'=>$id]);
+});
+Route::post('/products/edit', [Controllers\ProductsController::class, 'Edit']);
+
+Route::get('/categories/delete/{id}', [Controllers\CategoriesController::class, 'Delete']);
+Route::get('/products/delete/{id}', [Controllers\ProductsController::class, 'Delete']);
+
+Route::get('/orders/add', function(){
+    return view('add-order');
+});
+Route::post('/orders/add', [Controllers\OrdersController::class, 'CreateNew']);

@@ -1,10 +1,9 @@
 @extends('layouts.product')
 
 <?php
-$cat = \App\Models\categories::find($catId);
-$prod = \App\Models\products_detail::find($prodId);
+$prod = \App\Models\products_detail::find($id);
 ?>
 
 @section('head-title')
-    {{ $prod->name }} - {{ $cat->name }} - Ankas
+    {{ $prod->name }} - Ankas
 @endsection

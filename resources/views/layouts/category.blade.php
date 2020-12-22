@@ -5,6 +5,27 @@ session_start();
 <html lang="en">
 <head>
     @include('includes.head')
+    <style>
+        .price {
+            text-align: center;
+            display: block;
+            width: 100%;
+            font-weight: bold;
+            font-size: 20px;
+            color: #00975e;
+        }
+        .price {
+            text-align: center;
+            display: block;
+            width: 100%;
+            font-weight: bold;
+            font-size: 20px;
+            color: #00975e;
+        }
+        .buy {
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -13,24 +34,37 @@ session_start();
 
     <?php
     $cat = \App\Models\categories::find($id);
+    $_SESSION['current_category'] = $cat->id;
     ?>
 
     <div class="b-white">
-        <h1 class="page_header">{{ $cat->name }}</h1>
+        <h1 class="page_header">
+            {{ $cat->name }}
+            <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a>
+            <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a>
+        </h1>
     </div>
 
     <?php
     $cats = $cat->child_categories()->get();
-    if (count($cats) != 0){
+    $isadmin = false;
+    $show = count($cats) != 0;
+    if (isset($_SESSION['AuthedUser'])){
+        if ($_SESSION['AuthedUser']['role'] == 'Администратор'){
+            $show = true;
+            $isadmin = true;
+        }
+    }
+    if ($show){
     ?>
     <div class="b-white">
         <h1>Подкатегории ({{ count($cats) }}шт.)</h1>
-        <div class="grid g-col6 grid-items">
+        <div class="grid grid-items">
             <?php
             if (isset($_SESSION['AuthedUser'])){
             if ($_SESSION['AuthedUser']['role'] == 'Администратор'){ ?>
             <div class="grid-item item-new">
-                <a href="/categories/{{ $id }}/add"><img src="/images/new.png"></a>
+                <a href="{{ route('add-category') }}"><img src="/images/new.png"></a>
             </div>
             <?php
             }
@@ -42,6 +76,8 @@ session_start();
                     <span>{{ $cat->name }}</span>
                     <img src="{{ $cat->image }}">
                 </a>
+                <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a>
+                <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a>
             </div> <?php
             }
             ?>
@@ -57,20 +93,25 @@ session_start();
         foreach ($pcats as $pcat){
             if ($id == $pcat->id){
                 array_push($prods, $prod);
-                break;
             }
         }
     }
-    if (count($prods) != 0){
+    $show = count($prods) != 0;
+    if (isset($_SESSION['AuthedUser'])){
+        if ($_SESSION['AuthedUser']['role'] == 'Администратор'){
+            $show = true;
+        }
+    }
+    if ($show){
     ?>
     <div class="b-white">
-        <h1>Товары ({{ count($products) }}шт.)</h1>
-        <div class="grid g-col6 grid-items">
+        <h1>Товары ({{ count($prods) }}шт.)</h1>
+        <div class="grid grid-items">
             <?php
             if (isset($_SESSION['AuthedUser'])){
             if ($_SESSION['AuthedUser']['role'] == 'Администратор'){ ?>
             <div class="grid-item item-new">
-                <a href="/categories/{{ $id }}/products/add"><img src="/images/new.png"></a>
+                <a href="{{ route('add-product') }}"><img src="/images/new.png"></a>
             </div>
             <?php
             }
@@ -78,14 +119,41 @@ session_start();
 
             foreach ($prods as $prod){ ?>
                 <div class="b-white">
-                    <a href="/categories/{{ $id }}/products/{{ $prod->id }}">
+                    <a href="/products/{{ $prod->id }}">
                         <span>{{ $prod->name }}</span>
                         <img src="{{ $prod->image }}">
+                        <span class="price">{{ $prod->price() }} <button id="{{ $prod->id }}" class="buy">Купить</button></span>
                     </a>
+                    <a href="/products/edit/{{ $prod->id }}" class="edit"><img src="/images/edit.png"></a>
+                    <a href="/products/delete/{{ $prod->id }}" class="delete"><img src="/images/delete.png"></a>
                 </div> <?php
             }
             ?>
         </div>
+        <script>
+            $(document).ready(function(){
+                $('a').click(function(e){
+                    if (e.target.nodeName == 'BUTTON')
+                        e.preventDefault();
+                });
+
+                $('.buy').click(function(e){
+                    let data = new FormData();
+                    data.append('prod_id', this.id);
+                    let xhr = new XMLHttpRequest();
+                    xhr.open('post', '/api/cart/add');
+                    xhr.send(data);
+                    xhr.onreadystatechange = function(e){
+                        if (xhr.readyState == 4){
+                            console.log(xhr.response);
+                            if (xhr.response == 'success') {
+                                $('.buy').html("Добавлено в корзину");
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
     </div>
     <?php } ?>
 

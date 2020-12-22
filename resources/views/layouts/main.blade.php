@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['current_category'] = null;
 ?>
     <!doctype html>
 <html lang="en">
@@ -52,17 +53,17 @@ session_start();
         </div>
         <script src="/js/slider.js"></script>
 
-        <div class="banner-right">
+        <div class="banner-right mobile-hidden">
             <img src="/images/banner-2.jpg">
         </div>
     </div>
 
-    <div class="grid g-col6 grid-items">
+    <div class="grid grid-items">
         <?php
         if (isset($_SESSION['AuthedUser'])){
             if ($_SESSION['AuthedUser']['role'] == 'Администратор'){ ?>
             <div class="grid-item item-new">
-                <a href="/categories/add"><img src="/images/new.png"></a>
+                <a href="{{ route('add-category') }}"><img src="/images/new.png"></a>
             </div>
             <?php
             }
@@ -78,6 +79,8 @@ session_start();
                     <span>{{ $cat->name }}</span>
                     <img src="{{ $cat->image }}">
                 </a>
+                <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a>
+                <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a>
             </div>
             <?php
             }
