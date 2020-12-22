@@ -34,43 +34,22 @@ session_start();
         <h1 class="page_header">Оформление заказа</h1>
 
         <div>
-            <form name="new-category" action="/orders/add" method="post" enctype="multipart/form-data">
+            <form action="/orders/add" method="post" enctype="multipart/form-data">
                 @csrf
-                <p>Родительская категория:</p>
-                <select name="parent">
-                    <option value="none">Нет</option>
-                    <?php
-                    $cats = \App\Models\categories::all();
-                    foreach ($cats as $cat){
-                        echo '<option value="'.$cat->id.'"';
-                        if (isset($_SESSION['current_category'])){
-                            if ($_SESSION['current_category'] != null){
-                                if ($cat->id == $_SESSION['current_category']){
-                                    echo ' selected';
-                                }
-                            }
-                        }
-                        echo '>'.$cat->name.'</option>';
-                    }
-                    ?>
-                </select>
-                <p>Название категории:</p>
-                <input type="text" name="name">
-                <p>Адрес изображения категории:</p>
-                <select name="image">
-                    <option value="/images/default-image.png">default-image.png</option>
-                    <?php
-                    $dir = $_SERVER['DOCUMENT_ROOT'].'/images/categories';
-                    $files = scandir($dir);
-                    foreach ($files as $item){
-                        if ($item != '.' && $item != '..' && !is_dir($dir.'/'.$item)){
-                            echo '<option value="/images/categories/'.$item.'">'.$item.'</option>';
-                        }
-                    }
-                    ?>
-                </select>
-                <img src="/images/default-image.png" id="img">
-                <input type="submit" value="Создать">
+                <p>Ваше имя:</p>
+                <input type="text" name="first_name">
+                <p>Ваша фамилия:</p>
+                <input type="text" name="last_name">
+                <p>Ваше отчество:</p>
+                <input type="text" name="third_name">
+                <p>Ваша электронная почта:</p>
+                <input type="text" name="email">
+                <p>Ваш номер телефона:</p>
+                <input type="text" name="phone">
+                <?php $sum = \App\Http\Controllers\CartController::GetCost(); ?>
+                <p>Сумма заказа: <?php echo $sum; ?></p>
+                <input type="hidden" value="<?php echo $sum; ?>" name="sum">
+                <input type="submit" value="Оформить заказ">
             </form>
             <script>
                 $(document).ready(function(){

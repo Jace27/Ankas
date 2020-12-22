@@ -44,6 +44,14 @@ class CreateRightsTable extends Migration
                 'name' => 'Удалить категорию',
                 'description' => ''
             ),
+            array(
+                'name' => 'Просмотреть все заказы',
+                'description' => ''
+            ),
+            array(
+                'name' => 'Изменить статус заказа',
+                'description' => ''
+            ),
         ));
     }
 

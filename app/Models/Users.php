@@ -10,6 +10,6 @@ class Users extends Model
     use HasFactory;
 
     public function role(){
-        return $this->belongsTo('\App\Models\roles');
+        return $this->belongsTo('\App\Models\roles', 'role_id', 'id');
     }
 }

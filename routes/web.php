@@ -60,7 +60,16 @@ Route::post('/products/edit', [Controllers\ProductsController::class, 'Edit']);
 Route::get('/categories/delete/{id}', [Controllers\CategoriesController::class, 'Delete']);
 Route::get('/products/delete/{id}', [Controllers\ProductsController::class, 'Delete']);
 
+Route::get('/orders', function(){
+    return view('orders');
+})->name('orders');
+Route::get('/orders/{id}', function($id){
+    return view('order', ['id'=>$id]);
+});
+Route::post('/orders/{id}/change', [Controllers\OrdersController::class, 'ChangeStatus']);
 Route::get('/orders/add', function(){
     return view('add-order');
 });
 Route::post('/orders/add', [Controllers\OrdersController::class, 'CreateNew']);
+
+Route::post('/search', [Controllers\SearchController::class, 'Search'])->name('search');

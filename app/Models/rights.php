@@ -9,4 +9,8 @@ class rights extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    public function roles(){
+        return $this->belongsToMany('\App\Models\roles', 'role_rights', 'right_id', 'role_id');
+    }
 }

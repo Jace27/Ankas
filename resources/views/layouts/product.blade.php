@@ -56,15 +56,15 @@ session_start();
     <div class="b-white product">
         <h1 class="page_header">
             {{ $prod->name }}
-            <a href="/products/edit/{{ $prod->id }}" class="edit"><img src="/images/edit.png"></a>
             <a href="/products/delete/{{ $prod->id }}" class="delete"><img src="/images/delete.png"></a>
+            <a href="/products/edit/{{ $prod->id }}" class="edit"><img src="/images/edit.png"></a>
         </h1>
         <div class="prod_img">
             <img src="{{ $prod->image }}">
         </div>
         <div id="price_buy">
             <span class="price">{{ $prod->price() }}</span>
-            <button class="buy">Купить</button>
+            <div class="center"><button class="buy">Купить</button></div>
         </div>
         <div>
             <div>

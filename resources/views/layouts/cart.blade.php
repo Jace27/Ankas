@@ -47,6 +47,8 @@ session_start();
             ?>
         </div>
         <h2>Суммарная стоимость: <span id="sum">0</span></h2>
+        <div class="center"><button onclick="window.location.assign('/orders/add')">Оформить заказ</button></div>
+        <br>
         <script>
             function getCost(){
                 let xhr = new XMLHttpRequest();

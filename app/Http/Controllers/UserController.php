@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public static function UserHaveRight($rightName){
+        if (!isset($_SESSION)) session_start();
+        if (isset($_SESSION['AuthedUser'])){
+            foreach ($_SESSION['AuthedUser']['rights'] as $right){
+                if ($right->name == $rightName){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // обработчик авторизации пользователя
     public function SignIn(Request $request){
         // получаем данные из формы
@@ -21,10 +33,10 @@ class UserController extends Controller
             if ($request->input('email') == $user->email &&
                 password_verify($request->input('pass'), $user->password)){
                 // если пользователь найден, начинаем сессию
-                session_start();
+                if (!isset($_SESSION)) session_start();
                 $_SESSION['AuthedUser'] = array(
                     'email' => $user->email,
-                    'role' => $user->role->name,
+                    'rights' => $user->role()->first()->rights()->get(),
                     'first_name' => $user->first_name,
                     'last_name' => $user->last_name,
                     'third_name' => $user->third_name,
@@ -40,7 +52,7 @@ class UserController extends Controller
     }
     // обработчик запроса на регистрацию
     public function SignUp(Request $request){
-        session_start();
+        if (!isset($_SESSION)) session_start();
 
         // получаем все поля формы
         $data = $request->all();
@@ -93,7 +105,7 @@ class UserController extends Controller
         return redirect()->route('main-page');
     }
     public function SignDown(Request $request){
-        session_start();
+        if (!isset($_SESSION)) session_start();
         unset($_SESSION['AuthedUser']);
         $_SESSION['message'] = ['type'=>'success', 'text'=>'До свидания!'];
         return redirect()->route('main-page');

@@ -16,6 +16,11 @@
                 <p><a href="{{ route('signup') }}">Зарегистрироваться</a></p> <?php
             } else { ?>
                 <p><a href="{{ route('signdown') }}">Выйти</a></p> <?php
+                foreach ($_SESSION['AuthedUser']['rights'] as $key => $item){
+                    if ($item->name == 'Просмотреть все заказы'){ ?>
+                        <p><a href="{{ route('orders') }}">Все заказы</a></p> <?php
+                    }
+                }
             } ?>
         </div>
         <div class="mobile-hidden">

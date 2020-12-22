@@ -60,13 +60,10 @@ $_SESSION['current_category'] = null;
 
     <div class="grid grid-items">
         <?php
-        if (isset($_SESSION['AuthedUser'])){
-            if ($_SESSION['AuthedUser']['role'] == 'Администратор'){ ?>
+        if (\App\Http\Controllers\UserController::UserHaveRight('Добавить категорию')){ ?>
             <div class="grid-item item-new">
                 <a href="{{ route('add-category') }}"><img src="/images/new.png"></a>
-            </div>
-            <?php
-            }
+            </div> <?php
         }
 
         $cats = \App\Models\categories::all();
@@ -79,8 +76,13 @@ $_SESSION['current_category'] = null;
                     <span>{{ $cat->name }}</span>
                     <img src="{{ $cat->image }}">
                 </a>
-                <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a>
-                <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a>
+                <?php
+                if (\App\Http\Controllers\UserController::UserHaveRight('Изменить категорию')){ ?>
+                    <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a> <?php
+                }
+                if (\App\Http\Controllers\UserController::UserHaveRight('Удалить категорию')){ ?>
+                    <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a> <?php
+                } ?>
             </div>
             <?php
             }

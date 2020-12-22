@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public static function AddItem($id){
-        session_start();
+        if (!isset($_SESSION)) session_start();
         if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
@@ -25,7 +25,7 @@ class CartController extends Controller
         return 'success';
     }
     public static function RemoveItem($id){
-        session_start();
+        if (!isset($_SESSION)) session_start();
         if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
@@ -41,7 +41,7 @@ class CartController extends Controller
         return 'success';
     }
     public static function GetCost(){
-        session_start();
+        if (!isset($_SESSION)) session_start();
         if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }

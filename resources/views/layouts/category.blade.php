@@ -40,8 +40,13 @@ session_start();
     <div class="b-white">
         <h1 class="page_header">
             {{ $cat->name }}
-            <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a>
-            <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a>
+            <?php
+            if (\App\Http\Controllers\UserController::UserHaveRight('Удалить категорию')){ ?>
+                <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a> <?php
+            }
+            if (\App\Http\Controllers\UserController::UserHaveRight('Изменить категорию')){ ?>
+                <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a> <?php
+            } ?>
         </h1>
     </div>
 
@@ -49,11 +54,8 @@ session_start();
     $cats = $cat->child_categories()->get();
     $isadmin = false;
     $show = count($cats) != 0;
-    if (isset($_SESSION['AuthedUser'])){
-        if ($_SESSION['AuthedUser']['role'] == 'Администратор'){
-            $show = true;
-            $isadmin = true;
-        }
+    if (\App\Http\Controllers\UserController::UserHaveRight('Добавить категорию')){
+        $show = true;
     }
     if ($show){
     ?>
@@ -61,13 +63,10 @@ session_start();
         <h1>Подкатегории ({{ count($cats) }}шт.)</h1>
         <div class="grid grid-items">
             <?php
-            if (isset($_SESSION['AuthedUser'])){
-            if ($_SESSION['AuthedUser']['role'] == 'Администратор'){ ?>
-            <div class="grid-item item-new">
-                <a href="{{ route('add-category') }}"><img src="/images/new.png"></a>
-            </div>
-            <?php
-            }
+            if (\App\Http\Controllers\UserController::UserHaveRight('Добавить категорию')){ ?>
+                <div class="grid-item item-new">
+                    <a href="{{ route('add-category') }}"><img src="/images/new.png"></a>
+                </div> <?php
             }
 
             foreach ($cats as $cat){ ?>
@@ -76,8 +75,13 @@ session_start();
                     <span>{{ $cat->name }}</span>
                     <img src="{{ $cat->image }}">
                 </a>
-                <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a>
-                <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a>
+                <?php
+                if (\App\Http\Controllers\UserController::UserHaveRight('Изменить категорию')){ ?>
+                    <a href="/categories/edit/{{ $cat->id }}" class="edit"><img src="/images/edit.png"></a> <?php
+                }
+                if (\App\Http\Controllers\UserController::UserHaveRight('Удалить категорию')){ ?>
+                    <a href="/categories/delete/{{ $cat->id }}" class="delete"><img src="/images/delete.png"></a> <?php
+                } ?>
             </div> <?php
             }
             ?>
@@ -97,10 +101,8 @@ session_start();
         }
     }
     $show = count($prods) != 0;
-    if (isset($_SESSION['AuthedUser'])){
-        if ($_SESSION['AuthedUser']['role'] == 'Администратор'){
-            $show = true;
-        }
+    if (\App\Http\Controllers\UserController::UserHaveRight('Добавить товар')){
+        $show = true;
     }
     if ($show){
     ?>
@@ -108,13 +110,10 @@ session_start();
         <h1>Товары ({{ count($prods) }}шт.)</h1>
         <div class="grid grid-items">
             <?php
-            if (isset($_SESSION['AuthedUser'])){
-            if ($_SESSION['AuthedUser']['role'] == 'Администратор'){ ?>
-            <div class="grid-item item-new">
-                <a href="{{ route('add-product') }}"><img src="/images/new.png"></a>
-            </div>
-            <?php
-            }
+            if (\App\Http\Controllers\UserController::UserHaveRight('Добавить товар')){ ?>
+                <div class="grid-item item-new">
+                    <a href="{{ route('add-product') }}"><img src="/images/new.png"></a>
+                </div> <?php
             }
 
             foreach ($prods as $prod){ ?>
@@ -123,9 +122,13 @@ session_start();
                         <span>{{ $prod->name }}</span>
                         <img src="{{ $prod->image }}">
                         <span class="price">{{ $prod->price() }} <button id="{{ $prod->id }}" class="buy">Купить</button></span>
-                    </a>
-                    <a href="/products/edit/{{ $prod->id }}" class="edit"><img src="/images/edit.png"></a>
-                    <a href="/products/delete/{{ $prod->id }}" class="delete"><img src="/images/delete.png"></a>
+                    </a> <?php
+                    if (\App\Http\Controllers\UserController::UserHaveRight('Удалить товар')){ ?>
+                        <a href="/products/delete/{{ $prod->id }}" class="delete"><img src="/images/delete.png"></a> <?php
+                    }
+                    if (\App\Http\Controllers\UserController::UserHaveRight('Изменить товар')){ ?>
+                        <a href="/products/edit/{{ $prod->id }}" class="edit"><img src="/images/edit.png"></a> <?php
+                    } ?>
                 </div> <?php
             }
             ?>
