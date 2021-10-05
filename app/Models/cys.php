@@ -9,4 +9,9 @@ class cys extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'code',
+        'symbol'
+    ];
 }

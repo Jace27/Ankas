@@ -1,0 +1,45 @@
+.popup-wrapper {
+    background-color: rgba(128,128,128,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.popup {
+    padding: 1em;
+    margin: calc(75px) calc(50% - 150px);
+    min-height: 100px;
+    width: 300px;
+    overflow: auto;
+    text-align: center;
+    background-color: rgba(224,224,224,1);
+    border: 1px solid rgba(32,32,32,0.9);
+}
+.popup * {
+    text-align: center;
+    margin: auto;
+}
+.popup.popup-big {
+    margin-top: 20px;
+    min-height: calc(100% - 80px);
+    height: calc(100% - 80px);
+    min-width: 90%;
+    width: 90%;
+    margin: 20px 5%;
+}
+.popup button, .popup input[type=button], .popup input[type=submit] {
+    border: none;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+    margin-top: 0.5em;
+}
+.popup.error {
+    background-color: white;
+    border: 1px solid rgba(255,32,32,0.9);
+}
+.popup.success {
+    background-color: white;
+    border: 1px solid rgba(32,255,32,0.9);
+}

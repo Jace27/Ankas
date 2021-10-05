@@ -9,4 +9,8 @@ class subcategories extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'parent_category_id',
+        'child_category_id'
+    ];
 }

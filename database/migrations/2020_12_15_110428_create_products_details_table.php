@@ -25,7 +25,7 @@ class CreateProductsDetailsTable extends Migration
             $table->string('model')->nullable();
             $table->text('description')->nullable();
             $table->string('description_short')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image_id')->nullable();
             $table->integer('length')->nullable();
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();

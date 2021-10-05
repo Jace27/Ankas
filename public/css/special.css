@@ -1,0 +1,81 @@
+.logo img { margin-top: 0.4em; }
+
+.btn-edit {
+    position: relative;
+    display: block;
+    width: 32px;
+    float: right;
+    margin: 0.1em 0.4em;
+}
+.btn-delete {
+    position: relative;
+    display: block;
+    width: 32px;
+    float: right;
+    right: 0;
+    margin: 0.1em 0.4em;
+}
+.price {
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    color: #00975e;
+}
+.micon:before, .micon:after {
+    font-family: 'megaicons';
+    font-size: 24px;
+    color: #999;
+}
+.social_icon {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+}
+.micon.search:after {
+    content: "\e043";
+}
+.micon.cart:before {
+    content: "\e005";
+}
+.micon.tel:before {
+    content: "\e017";
+    font-size: 12px;
+}
+.micon.hour:before {
+    content: "\e156";
+    font-size: 12px;
+}
+.micon.email:before {
+    content: "\e069";
+    font-size: 12px;
+}
+.b-footer__infoSocial {
+    text-align: right;
+}
+
+.file-dropper {
+    border: 5px #bbb dashed;
+    min-height: 100px;
+    min-width: 200px;
+    height: 100px;
+    line-height: 100px;
+    box-sizing: content-box;
+}
+.file-dropper:hover {
+    background-color: #eee;
+}
+.file-dropper * {
+    color: #bbb;
+}
+.image-gallery {
+    margin: 1em 0;
+}
+.image-gallery > * {
+    margin-top: 5px;
+}
+
+.selected {
+    box-shadow: 0 0 2px 2px #ccc;
+}

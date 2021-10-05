@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->boolean('published')->default(true);
-            $table->string('image')->default('/images/default-image.png');
+            $table->integer('image_id')->default(0);
             $table->text('description')->nullable();
             $table->string('description_short')->nullable();
             $table->timestamps();

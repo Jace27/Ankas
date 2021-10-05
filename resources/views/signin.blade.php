@@ -1,11 +1,11 @@
-@extends('layouts.app')
-
-@section('head-title')
-    Войти в личный кабинет - Ankas
-@endsection
+@extends('layouts.public')
 
 @section('head')
     @parent
+@endsection
+
+@section('head-title')
+    Войти в личный кабинет - Ankas
 @endsection
 
 @section('header')
@@ -13,16 +13,16 @@
 @endsection
 
 @section('content')
-    <div class="b-white section">
+    <div class="b-white section p-1">
         <form action="{{ route('signin') }}" method="post" id="form" enctype="multipart/form-data">
             @csrf
             <p><b>Ваш E-Mail:</b></p>
-            <input type="text" class="d-block" name="email" value="<?php if (isset($_GET['email'])) echo $_GET['email']; ?>">
+            <input type="text" class="d-block form-control" name="email" value="@if(isset($_GET['email'])) {{ $_GET['email'] }} @endif">
             <p><b>Ваш пароль:</b></p>
-            <input type="password" class="d-block" name="public_pass">
+            <input type="password" class="d-block form-control" name="public_pass">
             <input type="text" class="d-none" name="pass">
-            <input type="submit" value="Войти" class="d-block">
-            <a href="{{ route('signup') }}">Еще не зарегистрированы? Создайте аккаунт</a>
+            <input type="submit" value="Войти" class="d-block btn btn-primary mt-3">
+            <div class="mt-3"><a href="{{ route('signup') }}">Еще не зарегистрированы? Создайте аккаунт</a></div>
         </form>
     </div>
 @endsection

@@ -11,7 +11,7 @@ session_start();
 
     @include('includes.header')
 
-    <div class="b-white">
+    <div class="b-white p-1">
         <h1 class="page_header">Страница не найдена</h1>
     </div>
 

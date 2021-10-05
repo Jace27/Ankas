@@ -9,9 +9,13 @@ class roles extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'description'
+    ];
 
     public function users(){
-        return $this->hasMany('\App\Models\Users');
+        return $this->hasMany('\App\Models\users');
     }
     public function rights(){
         return $this->belongsToMany('\App\Models\rights', 'role_rights', 'role_id', 'right_id');

@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class categories extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'description', 'image', 'created_at', 'updated_at'];
+    public $timestamps = true;
+    protected $fillable = [
+        'name',
+        'description',
+        'image_id',
+        'created_at',
+        'updated_at'
+    ];
 
     public function child_categories(){
         return $this->belongsToMany('App\Models\categories', 'subcategories', 'parent_category_id', 'child_category_id');
@@ -18,5 +25,8 @@ class categories extends Model
     }
     public function products(){
         return $this->belongsToMany('\App\Models\products_detail', 'products_categories', 'category_id', 'products_detail_id');
+    }
+    public function image(){
+        return $this->belongsTo(\App\Models\images::class, 'image_id', 'id')->first();
     }
 }

@@ -8664,7 +8664,7 @@ module.exports = {
      */
     var stringToPath = memoizeCapped(function(string) {
       var result = [];
-      if (string.charCodeAt(0) === 46 /* . */) {
+      if (string.charCodeAt(0) === 46 /*.*/) {
         result.push('');
       }
       string.replace(rePropName, function(match, number, quote, subString) {

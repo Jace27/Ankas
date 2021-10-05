@@ -20,8 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('third_name')->nullable();
             $table->string('phone');
             $table->string('email');
-            $table->integer('sum')->default(0);
-            $table->string('status')->default('Не оплачен');
+            $table->integer('status_id')->default(1);
             $table->timestamps();
         });
     }
@@ -35,6 +34,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::table('orders', function(Blueprint $table){
             $table->dropForeign('orders_products_order_id_foreign');
+            $table->dropForeign('orders_status_id_foreign');
         });
         Schema::dropIfExists('orders');
     }

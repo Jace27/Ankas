@@ -9,4 +9,10 @@ class brands extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'country',
+        'image',
+        'description'
+    ];
 }
