@@ -25,9 +25,9 @@
 Доступы к тестовым аккаунтам
 ============================
 Администратор:
-* admin@ankas.ru
-* admin
+	admin@ankas.ru
+	admin
 Менеджер:
-* manager@ankas.ru
-* manager
+	manager@ankas.ru
+	manager
 Аккаунт постоянного клиента можно и новый создать :)
